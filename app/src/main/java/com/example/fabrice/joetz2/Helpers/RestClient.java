@@ -1,7 +1,6 @@
 package com.example.fabrice.joetz2.Helpers;
 
 import com.example.fabrice.joetz2.RestService.RestService;
-
 import retrofit.RestAdapter;
 
 /**
