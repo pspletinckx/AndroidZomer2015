@@ -16,7 +16,7 @@ import com.example.fabrice.joetz2.Controllers.PlaceholderFragment;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LijstFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -56,8 +56,19 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 1 :
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, LijstFragment.newInstance("",""))
+                        .replace(R.id.container, LijstFragment.newInstance("","",position + 1))
                         .commit();
+                break;
+            case 2 :
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .commit();
+                break;
+            case 4 :
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .commit();
+                break;
         }
 
     }
@@ -72,6 +83,9 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
                 break;
         }
     }
@@ -113,4 +127,8 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+    @Override
+    public void onFragmentInteraction(String id) {
+        //Zie implements waar deze methode vandaan kwam
+    }
 }

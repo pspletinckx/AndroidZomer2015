@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.example.fabrice.joetz2.MainActivity;
 import com.example.fabrice.joetz2.R;
 
 import com.example.fabrice.joetz2.Controllers.dummy.DummyContent;
@@ -32,6 +33,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,11 +53,12 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
     private ListAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static LijstFragment newInstance(String param1, String param2) {
+    public static LijstFragment newInstance(String param1, String param2, int sectionNumber) {
         LijstFragment fragment = new LijstFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -105,6 +108,8 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        ((MainActivity) activity).onSectionAttached(
+                getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
     @Override
