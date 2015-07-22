@@ -15,4 +15,7 @@ public interface RestService {
 
     @GET("/informatie/{vacationId}")
     Vacation getVacation(@Path("vacationId") long vacationId);
+
+    //TODO: Methode voor log in
+    //TODO: Methode voor registreren
 }
