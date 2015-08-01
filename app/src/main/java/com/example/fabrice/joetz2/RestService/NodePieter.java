@@ -1,5 +1,7 @@
 package com.example.fabrice.joetz2.RestService;
 
+import com.example.fabrice.joetz2.Models.Vacation;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -22,19 +24,6 @@ public class NodePieter {
                 .build();
 
         restService = restAdapter.create(RestService.class);
-
-        Callback  callback = new Callback() {
-
-            @Override
-            public void success(Object o, Response response) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        };
     }
     public static NodePieter getInstance(){
         if (singleton==null){
@@ -44,6 +33,10 @@ public class NodePieter {
     }
     public RestService getService(){
         return restService;
+    }
+
+    public void getVacations(Callback<Vacation> callback){
+        restService.getAllVacations(callback);
     }
 
 

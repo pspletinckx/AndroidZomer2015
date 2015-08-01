@@ -93,11 +93,11 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
                 android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
         //TEST TEST TEST
 
-        Callback callback = new Callback() {
+        Callback <Vacation> callback = new Callback<Vacation>() {
 
             @Override
-            public void success(Object o, Response response) {
-                Log.d("Vacations",o.toString());
+            public void success(Vacation vacation, Response response) {
+                Log.d("Vacations",vacation.toString());
             }
 
             @Override
