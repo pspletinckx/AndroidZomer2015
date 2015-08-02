@@ -1,9 +1,11 @@
-package com.example.fabrice.joetz2;
+package com.example.fabrice.joetz2.Controllers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -23,8 +25,10 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -36,6 +40,7 @@ import android.widget.Toast;
 
 import com.example.fabrice.joetz2.Helpers.HelperMethods;
 import com.example.fabrice.joetz2.Helpers.RestClient;
+import com.example.fabrice.joetz2.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,19 +49,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity {
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+public class LoginFragment extends DialogFragment {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -76,31 +72,43 @@ public class LoginActivity extends Activity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        //setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email_address);
-        mPasswordView = (EditText) findViewById(R.id.passWord);
-        mEmailSignInButton = (Button) findViewById(R.id.btnLogIn);
-        mSignUpButton = (Button) findViewById(R.id.btnSignUp);
-        mSignOutButton = (Button) findViewById(R.id.btnSingOut);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_login, container, false);
+        Dialog myDialog=getDialog();
+        myDialog.setTitle("Inloggen");
+
+        mEmailView = (EditText) v.findViewById(R.id.email_address);
+        mPasswordView = (EditText) v.findViewById(R.id.passWord);
+        mEmailSignInButton = (Button) v.findViewById(R.id.btnLogIn);
+        mSignUpButton = (Button) v.findViewById(R.id.btnSignUp);
+        mSignOutButton = (Button) v.findViewById(R.id.btnSingOut);
         mEmailSignInButton.setEnabled(false);
-        mLoginForm = (LinearLayout) findViewById(R.id.login_form);
-        mLogoutForm = (LinearLayout) findViewById(R.id.logout_form_buttons);
+        mLoginForm = (LinearLayout) v.findViewById(R.id.login_form);
+        mLogoutForm = (LinearLayout) v.findViewById(R.id.logout_form_buttons);
 
         setUpListeners();
-        showButtonsForLoggedIn(HelperMethods.isLoggedIn(getApplication()));
+        //showButtonsForLoggedIn(HelperMethods.isLoggedIn(getApplication()));
+
+        return v;
     }
 
     /**
      * Initialiseert het scherm als de activity herstart wordt
      */
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        showButtonsForLoggedIn(HelperMethods.isLoggedIn(getApplication()));
+        //showButtonsForLoggedIn(HelperMethods.isLoggedIn(getApplication()));
     }
 
     /**
@@ -195,11 +203,11 @@ public class LoginActivity extends Activity {
      * te loggen starten
      */
     private void onLoginClicked() {
-        if (!HelperMethods.isNetworkAvailable(getApplicationContext())) {
+        /*if (!HelperMethods.isNetworkAvailable(getApplicationContext())) {
             Toast.makeText(getBaseContext(), "No network connection", Toast.LENGTH_SHORT).show();
-        } else {
+        } else {*/
             attemptLogin();
-        }
+    //    }
     }
 
     /**
@@ -305,12 +313,12 @@ public class LoginActivity extends Activity {
         }
         /**
          * Voordat de task gestart wordt zal er een dialog getoond worden
-         */
+
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(LoginActivity.this, getResources().getString(R.string.title_login), getResources().getString(R.string.please_wait), true);
             super.onPreExecute();
-        }
+        }*/
         /**
          * De parameter map die meegegeven zal worden met het HTTP request naar de server
          * zal hier opgevuld worden en meegegeven worden naar de functie die het
@@ -369,7 +377,7 @@ public class LoginActivity extends Activity {
             mAuthTask = null;
             progressDialog.dismiss();
             if (success) {
-                finish();
+                //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

@@ -1,7 +1,8 @@
 package com.example.fabrice.joetz2;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
+import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 //import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 
 
 import com.example.fabrice.joetz2.Controllers.LijstFragment;
+import com.example.fabrice.joetz2.Controllers.LoginFragment;
 import com.example.fabrice.joetz2.Controllers.PlaceholderFragment;
 
 
@@ -123,8 +125,16 @@ public class MainActivity extends ActionBarActivity
         if (id == R.id.action_settings) {
             return true;
         }else if (id == R.id.action_example){
-            Intent login = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(login);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            // Create and show the dialog.
+            LoginFragment newFragment = new LoginFragment();
+            newFragment.show(ft, "dialog");
         }
 
         return super.onOptionsItemSelected(item);
