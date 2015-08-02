@@ -39,7 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fabrice.joetz2.Helpers.HelperMethods;
-import com.example.fabrice.joetz2.Helpers.RestClient;
+//import com.example.fabrice.joetz2.Helpers.RestClient;
 import com.example.fabrice.joetz2.R;
 
 import java.util.ArrayList;
@@ -299,7 +299,7 @@ public class LoginFragment extends DialogFragment {
         private final String mEmail;
         private final String mPassword;
         private ProgressDialog progressDialog;
-        private RestClient restClient = new RestClient();
+        //private RestClient restClient = new RestClient();
 
         /**
          * Constructor

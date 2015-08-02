@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 //import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,17 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.fabrice.joetz2.MainActivity;
+import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
 
 import com.example.fabrice.joetz2.Controllers.dummy.DummyContent;
+import com.example.fabrice.joetz2.RestService.NodePieter;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -82,6 +91,23 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
         // TODO: Change Adapter to display your content
         mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        //TEST TEST TEST
+
+        Callback <Vacation> callback = new Callback<Vacation>() {
+
+            @Override
+            public void success(Vacation vacation, Response response) {
+                Log.d("Vacations",vacation.toString());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        };
+       NodePieter.getInstance().getService().getAllVacations(callback);
+        //END TEST
+
     }
 
     @Override
