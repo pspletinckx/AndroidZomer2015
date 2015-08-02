@@ -19,7 +19,7 @@ import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
 
 import com.example.fabrice.joetz2.Controllers.dummy.DummyContent;
-import com.example.fabrice.joetz2.RestService.NodePieter;
+import com.example.fabrice.joetz2.RestService.NetNico;
 
 import java.util.List;
 
@@ -93,19 +93,21 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
                 android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
         //TEST TEST TEST
 
-        Callback <Vacation> callback = new Callback<Vacation>() {
+        Callback <List<Vacation>> callback = new Callback<List<Vacation>>() {
 
             @Override
-            public void success(Vacation vacation, Response response) {
-                Log.d("Vacations",vacation.toString());
+            public void success(List<Vacation> vacations, Response response) {
+                for (Vacation v : vacations){
+                    Log.i("VakantieTitel",v.getTitel());
+                }
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.e("Retroapp",error.getMessage());
             }
         };
-       NodePieter.getInstance().getService().getAllVacations(callback);
+       NetNico.getInstance().getService().getAllVacations(callback);
         //END TEST
 
     }

@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fabrice.joetz2.Helpers.HelperMethods;
-import com.example.fabrice.joetz2.RestService.NodePieter;
+import com.example.fabrice.joetz2.RestService.NetNico;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -272,7 +272,7 @@ public class LoginActivity extends Activity {
         private final String mEmail;
         private final String mPassword;
         private ProgressDialog progressDialog;
-        private NodePieter nodePieter = new NodePieter();
+        private NetNico netNico = new NetNico();
 
         /**
          * Constructor
@@ -323,7 +323,7 @@ public class LoginActivity extends Activity {
 /*
             LoginToken loginToken;
             try {
-                loginToken = nodePieter.getRestService().login(loginParameterMap);
+                loginToken = netNico.getRestService().login(loginParameterMap);
                 if (loginToken != null) {
                     SharedPreferences sharedPref = getApplication()
                             .getSharedPreferences(getString(R.string.authorization_preference_file), Context.MODE_PRIVATE);
