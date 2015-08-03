@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 //import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.example.fabrice.joetz2.Controllers.Adaptor.VacationListAdaptor;
 import com.example.fabrice.joetz2.MainActivity;
 import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
@@ -21,7 +23,11 @@ import com.example.fabrice.joetz2.R;
 import com.example.fabrice.joetz2.Controllers.dummy.DummyContent;
 import com.example.fabrice.joetz2.RestService.NetNico;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -43,6 +49,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private List<Vacation> controllerVacations = new ArrayList<Vacation>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,7 +66,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private VacationListAdaptor mAdapter;
 
     // TODO: Rename and change types of parameters
     public static LijstFragment newInstance(String param1, String param2, int sectionNumber) {
@@ -79,6 +86,8 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
     public LijstFragment() {
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,16 +98,24 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+//        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(
+//                getActivity(),
+//                android.R.layout.simple_list_item_1,
+//                android.R.id.text1,
+//                DummyContent.ITEMS);
+        mAdapter = new VacationListAdaptor(getActivity(),R.layout.vacation_lijst_item,controllerVacations);
+        Vacation voorbeeldVacation = new Vacation();
+        voorbeeldVacation.setTitel("Voorbeeldvakantie (Design)");
+        mAdapter.add(voorbeeldVacation);
         //TEST TEST TEST
 
         Callback <List<Vacation>> callback = new Callback<List<Vacation>>() {
 
             @Override
             public void success(List<Vacation> vacations, Response response) {
+                mAdapter.addAll(vacations);
                 for (Vacation v : vacations){
-                    Log.i("VakantieTitel",v.getTitel());
+                    Log.i("VakantieTitel", v.getTitel());
                 }
             }
 
