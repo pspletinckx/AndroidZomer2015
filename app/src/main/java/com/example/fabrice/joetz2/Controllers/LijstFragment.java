@@ -72,8 +72,8 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
     public static LijstFragment newInstance(String param1, String param2, int sectionNumber) {
         LijstFragment fragment = new LijstFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, param1); //voorlopig ongebruikt, refactor
+        args.putString(ARG_PARAM2, param2); //voorlopig ongebruikt, refactor
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;

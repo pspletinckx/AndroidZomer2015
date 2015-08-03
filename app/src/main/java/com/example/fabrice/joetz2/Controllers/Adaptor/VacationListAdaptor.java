@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -24,6 +25,7 @@ public class VacationListAdaptor extends ArrayAdapter<Vacation> {
     Context context;
     int resource;
     List<Vacation>data;
+    String imageHost = "https://dl.dropboxusercontent.com/u/33161611/HoGent/joetz/md/";
 
     public VacationListAdaptor(Context context, int resource, List<Vacation> data) {
         super(context, resource, data);
@@ -41,10 +43,8 @@ public class VacationListAdaptor extends ArrayAdapter<Vacation> {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(resource,parent,false);
 
-            //tegel.coverImage = (ImageView)row.findViewById(R.id.coverImage);
             tegel.textTitle = (TextView) row.findViewById(R.id.textTitle);
             tegel.coverImage = (ImageView)row.findViewById(R.id.coverImage);
-
             row.setTag(tegel);
         }
         else{
@@ -52,7 +52,11 @@ public class VacationListAdaptor extends ArrayAdapter<Vacation> {
         }
         Vacation vacation = data.get(position);
         tegel.textTitle.setText(vacation.getTitel());
-        tegel.coverImage.setImageResource(R.drawable.banner_kinderboerderij);//todo
+        tegel.coverImage.setImageResource(R.drawable.banner_kinderboerderij);//todo maak placeholder
+        if(vacation.getCoverFoto()!= null){
+            String url = imageHost+vacation.getCoverFoto().getLocatie();
+            Picasso.with(context).load(url).into(tegel.coverImage); //todo dit werkt maar niet performant
+        }
         return row;
     }
 
