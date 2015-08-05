@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_margin="0dp"
-        android:text="@string/action_login"
+        android:text="@string/title_login"
         style="@style/DefaultButtonText"
         android:background="@drawable/button_default_bg"
         android:enabled="false"

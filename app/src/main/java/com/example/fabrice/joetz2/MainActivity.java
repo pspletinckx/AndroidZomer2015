@@ -16,10 +16,11 @@ import android.support.v4.widget.DrawerLayout;
 import com.example.fabrice.joetz2.Controllers.LijstFragment;
 import com.example.fabrice.joetz2.Controllers.LoginFragment;
 import com.example.fabrice.joetz2.Controllers.PlaceholderFragment;
+import com.example.fabrice.joetz2.Controllers.RegisterFragment;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LijstFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LijstFragment.OnFragmentInteractionListener, RegisterFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -67,9 +68,26 @@ public class MainActivity extends ActionBarActivity
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                         .commit();
                 break;
-            case 4 :
+            case 3 :
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .commit();
+                break;
+            case 4:
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                LoginFragment newFragment = new LoginFragment();
+                newFragment.show(ft, getString(R.string.title_login));
+                break;
+            case 5:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, RegisterFragment.newInstance(position +1))
                         .commit();
                 break;
         }
@@ -89,6 +107,12 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 4:
                 mTitle = getString(R.string.title_section4);
+                break;
+            case 5:
+                mTitle = getString(R.string.action_login);
+                break;
+            case 6:
+                mTitle = getString(R.string.registreren);
                 break;
         }
     }
@@ -124,17 +148,6 @@ public class MainActivity extends ActionBarActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }else if (id == R.id.action_example){
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.addToBackStack(null);
-
-            // Create and show the dialog.
-            LoginFragment newFragment = new LoginFragment();
-            newFragment.show(ft, "dialog");
         }
 
         return super.onOptionsItemSelected(item);
@@ -144,5 +157,10 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onFragmentInteraction(String id) {
         //Zie implements waar deze methode vandaan kwam
+    }
+
+    @Override
+    public void onFragmentInteraction() {
+
     }
 }

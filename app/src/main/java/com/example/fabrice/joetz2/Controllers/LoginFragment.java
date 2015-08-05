@@ -1,48 +1,36 @@
 package com.example.fabrice.joetz2.Controllers;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.LoaderManager.LoaderCallbacks;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Intent;
-import android.content.Loader;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fabrice.joetz2.Helpers.HelperMethods;
 //import com.example.fabrice.joetz2.Helpers.RestClient;
+import com.example.fabrice.joetz2.Helpers.HelperMethods;
 import com.example.fabrice.joetz2.R;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,20 +40,30 @@ import java.util.regex.Pattern;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginFragment extends DialogFragment {
+public class LoginFragment extends DialogFragment implements Validator.ValidationListener{
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     //private UserLoginTask mAuthTask = null;
 
     // UI references.
+    @Order(1)
+    @NotEmpty(messageResId = R.string.email_required)
+    @Email(messageResId = R.string.email_invalid)
     private EditText mEmailView;
+
+    @Order(2)
+    @NotEmpty(messageResId = R.string.password_required)
+    @Password(messageResId = R.string.password_invalid)
     private EditText mPasswordView;
+
     private Button mEmailSignInButton, mSignUpButton, mSignOutButton;
     private LinearLayout mLogoutForm, mLoginForm;
     private UserLoginTask mAuthTask = null;
     private boolean emailValid;
     private boolean passwordValid;
+    private Validator validator;
+
 
     /**
      * Initialiseert het scherm de eerste keer dat de activity gestart wordt
@@ -74,8 +72,8 @@ public class LoginFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_login);
-
+        validator = new Validator(this);
+        validator.setValidationListener(this);
         // Set up the login form.
 
     }
@@ -83,7 +81,7 @@ public class LoginFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
         Dialog myDialog=getDialog();
         myDialog.setTitle("Inloggen");
 
@@ -144,8 +142,10 @@ public class LoginFragment extends DialogFragment {
                 boolean isValidKey = keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER;
                 boolean isValidAction = actionId == EditorInfo.IME_ACTION_DONE;
 
-                if ((isValidAction || isValidKey)&& emailValid && passwordValid){
-                    attemptLogin();
+                validator.validate();
+
+                if ((isValidAction || isValidKey) && mEmailSignInButton.isEnabled()){
+                    onLoginClicked();
                 }
                 return false;
             }
@@ -156,13 +156,13 @@ public class LoginFragment extends DialogFragment {
         mPasswordView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int i, int i2, int i3) {
-
             }
+
             @Override
             public void onTextChanged(CharSequence s, int i, int i2, int i3) {
-                isPasswordValid(s.toString());
-                changeButtonState();
+                validator.validateTill(mPasswordView);
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -174,28 +174,28 @@ public class LoginFragment extends DialogFragment {
         mEmailView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int i, int i2, int i3) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i2, int i3) {
-                isEmailValid(s.toString());
-                changeButtonState();
+                validator.validateTill(mEmailView);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (emailValid)
-                    mEmailView.setError(null);
+
             }
         });
     }
 
     /**
-     * Gaat naar de registreren activity
+     * Gaat naar het registreren fragment
      */
     private void onSignUpClicked() {
-
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, RegisterFragment.newInstance(6))
+                .commit();
     }
 
     /**
@@ -203,11 +203,11 @@ public class LoginFragment extends DialogFragment {
      * te loggen starten
      */
     private void onLoginClicked() {
-        /*if (!HelperMethods.isNetworkAvailable(getApplicationContext())) {
-            Toast.makeText(getBaseContext(), "No network connection", Toast.LENGTH_SHORT).show();
-        } else {*/
+        if (!HelperMethods.isNetworkAvailable(getActivity())) {
+            Toast.makeText(getActivity(), "No network connection", Toast.LENGTH_SHORT).show();
+        } else {
             attemptLogin();
-    //    }
+        }
     }
 
     /**
@@ -223,44 +223,24 @@ public class LoginFragment extends DialogFragment {
         mAuthTask.execute((Void) null);
 
     }
-    /**
-     * Kijkt of de tekst een geldig emailadres is
-     * @param email de te valideren string
-     */
-    private void isEmailValid(String email) {
-        String emailRegEx;
-        Pattern pattern;
-        // Regex for a valid email address
-        emailRegEx = "^[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,4}$";
-        // Compare the regex with the email address
-        pattern = Pattern.compile(emailRegEx);
-        Matcher matcher = pattern.matcher(email);
 
-        emailValid =  matcher.find();
-    }
-    /**
-     * Kijkt of de tekst overeenkomt met de opgelegde regels voor wachtwoord
-     * @param password de te valideren string
-     */
-    private void isPasswordValid(String password) {
-        passwordValid =  !TextUtils.isEmpty(password);
+    @Override
+    public void onValidationSucceeded() {
+        mEmailSignInButton.setEnabled(true);
     }
 
-    /**
-     * Als alle velden correct gevalideerd zijn zal de knop om in te loggen ge-enabled worden
-     * anders zal de knop disabled worden. Bij de ongeldige velden komt ook een errorfield te staan
-     */
-    private void changeButtonState(){
-        if (emailValid && passwordValid){
-            mEmailSignInButton.setEnabled(true);
-        }else{
-            mEmailSignInButton.setEnabled(false);
-            if (!emailValid)
-                mEmailView.setError(getString(R.string.error_invalid_email));
-            if (!passwordValid)
-                mPasswordView.setError(getString(R.string.error_field_required));
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            ((EditText) view).setError(message);
         }
     }
+
 /**
     /**
      * Zal de huidig ingelogde gebruiker uitloggen
@@ -379,7 +359,7 @@ public class LoginFragment extends DialogFragment {
             if (success) {
                 //finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(getString(R.string.password_mismatch));
                 mPasswordView.requestFocus();
             }
         }

@@ -1,15 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Joetz2</string>
+    <string name="app_name">Joetz Vakanties</string>
     <string name="title_section1">Home</string>
     <string name="title_section2">Vakantie Overzicht</string>
     <string name="title_section3">About</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Login</string>
     <string name="action_settings">Settings</string>
     <string name="please_wait">Even geduld aub</string>
     <string name="title_section4">Contact</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Next</string>
+    <string name="telNr">Tel. of GSM</string>
+    <string name="bevestig_password">Bevestig wachtwoord</string>
+    <string name="firstname">Voornaam</string>
+    <string name="lastname">Naam</string>
+    <string name="rrn">Rijksregisternummer</string>
+    <string name="straat">Straat</string>
+    <string name="straatNr">Nr.</string>
+    <string name="gemeente">Gemeente</string>
+    <string name="postcode">Postcode</string>
+    <string name="voornaam">Voornaam</string>
+    <string name="voornaam_required">Voornaam is verplicht</string>
+    <string name="naam_required">Naam is verplicht</string>
+    <string name="rrn_required">Rijksregisternummer is verplicht</string>
+    <string name="rrn_invalid">Rijksregisternummer is niet geldig</string>
+    <string name="telnr_required">Tel. of GSM is verplicht</string>
+    <string name="telnr_invalid">Tel. of GSM is niet geldig</string>
+    <string name="email_required">Email is verplicht</string>
+    <string name="email_invalid">Email is niet geldig</string>
+    <string name="password_required">Wachtwoord is verplicht</string>
+    <string name="password_mismatch">Wachtwoorden komen niet overeen</string>
+    <string name="straat_required">Straat is verplicht</string>
+    <string name="straatnr_required">Nr. is verplicht</string>
+    <string name="gemeente_required">Gemeente is verplicht</string>
+    <string name="postcode_required">Postcode is verplicht</string>
+    <string name="postcode_invalid">Postcode moet tussen 8000 en 9000 liggen</string>
+    <string name="email_hint">Email</string>
+    <string name="enter">Enter</string>
+    <string name="password_hint">Wachtwoord</string>
+    <string name="title_login">Inloggen</string>
+    <string name="action_login">Login</string>
+    <string name="registreren">Registreer</string>
+    <string name="action_logout">Uitloggen</string>
+    <string name="title_activity_login">Inloggen</string>
+    <string name="password_invalid">Wachtwoord is niet geldig</string>
+
 
 </resources>
