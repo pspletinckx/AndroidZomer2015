@@ -19,7 +19,7 @@ public interface RestService {
     void getAllVacations(Callback<List<Vacation>> cb);
 
     @GET("/vacation/{vacationId}")
-    Vacation getVacation(@Path("vacationId") long vacationId,Callback callback);
+    void getVacation(@Path("vacationId") long vacationId,Callback<Vacation>cb);
 
     //TODO: Methode voor log in
     //TODO: Methode voor registreren

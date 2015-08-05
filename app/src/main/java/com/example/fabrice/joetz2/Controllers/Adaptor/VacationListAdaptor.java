@@ -13,8 +13,6 @@ import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -43,7 +41,7 @@ public class VacationListAdaptor extends ArrayAdapter<Vacation> {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(resource,parent,false);
 
-            tegel.textTitle = (TextView) row.findViewById(R.id.textTitle);
+            tegel.textTitle = (TextView) row.findViewById(R.id.titelTextView);
             tegel.coverImage = (ImageView)row.findViewById(R.id.coverImage);
             row.setTag(tegel);
         }

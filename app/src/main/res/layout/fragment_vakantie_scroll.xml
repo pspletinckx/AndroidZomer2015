@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:minHeight="100px"
+                android:id="@+id/coverImage"
+                android:src="@drawable/banner_kinderboerderij"
+                android:adjustViewBounds="true"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Boerderijvakantie"
+                android:id="@+id/titelTextView"
+                android:layout_alignBottom="@+id/coverImage"
+                android:layout_alignRight="@+id/coverImage"
+                android:background="#a2282828"
+                android:backgroundTintMode="screen"
+                android:textColor="#cff9f9f9"
+                android:textSize="@dimen/abc_text_size_title_material_toolbar"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:paddingRight="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Op deze kinderboerderijvakantie verblijf je echt tussen de dieren. Samen met de vele vriendjes en onze monitoren leer je op een plezante manier het leven op een echte boerderij kennen. Zo staan het voederen van de dieren, een ritje met de pony, het bakken van je eigen broodjes en nog zoveel meer op het programma. Alle dieren op de boerderij wachten vol ongeduld op jouw knuffels en goede zorgen. Wees er dus als de kippen bij en schrijf je snel in voor deze superweek!"
+                android:id="@+id/promoTextView"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="00 Deelnemers"
+                android:id="@+id/deelnemersTextView"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Van 11 Augustus tot 15 Augustus"
+                android:id="@+id/datumTextView"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Vakantiedomein, Stad"
+                android:id="@+id/locatieTextView"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Details"
+                android:id="@+id/dummyDetails"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Aanbod Voor Meerdere Leeftijden"
+                android:id="@+id/meerdereLeeftijdenTextView"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Groep 1: 4- tot 6- jarigen (°2010-°2008)"
+                android:id="@+id/wieTextView"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Prijs"
+                android:id="@+id/dummyPrijs"
+                android:layout_weight="1" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Basisprijs"
+                        android:id="@+id/dummyBasisprijs"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="9001"
+                        android:id="@+id/basisTextView"
+                        android:layout_weight="1" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Bond Moyson 1 ouder prijs"
+                        android:id="@+id/dummyEOP"
+                        android:layout_weight="1"
+                        android:layout_height="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="9001"
+                        android:id="@+id/enkelTextView"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="Bond Moyson beide ouders"
+                        android:id="@+id/dummyTOP"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="9001"
+                        android:id="@+id/dubbelTextView"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Inbegrepen in de vakantie"
+                android:id="@+id/dummyInbegrepen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Items\nItems"
+                android:id="@+id/inbegrepenTextView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Informatie"
+                android:id="@+id/dummieInformatie" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="000/00.00.00"
+                android:id="@+id/telefoonTextView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="info@hogent.be"
+                android:id="@+id/emailTextView" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -40,8 +40,8 @@ public class NetNico {
     public void getVacations(Callback<List<Vacation>> callback){
         restService.getAllVacations(callback);
     }
-    public void getVacation(long vacationid,Callback<Vacation> callback){
-        restService.getVacation(vacationid,callback);
+    public void getVacation(long vacationId,Callback<Vacation> callback){
+        restService.getVacation(vacationId,callback);
     }
 
 

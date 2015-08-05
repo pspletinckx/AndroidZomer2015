@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fabrice.joetz2.Controllers.Adaptor.VacationListAdaptor;
 import com.example.fabrice.joetz2.MainActivity;
@@ -104,24 +105,23 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
 //                android.R.id.text1,
 //                DummyContent.ITEMS);
         mAdapter = new VacationListAdaptor(getActivity(),R.layout.vacation_lijst_item,controllerVacations);
+       //Demo
         Vacation voorbeeldVacation = new Vacation();
         voorbeeldVacation.setTitel("Voorbeeldvakantie (Design)");
         mAdapter.add(voorbeeldVacation);
-        //TEST TEST TEST
-
+        //Demo einde
         Callback <List<Vacation>> callback = new Callback<List<Vacation>>() {
 
             @Override
             public void success(List<Vacation> vacations, Response response) {
-                mAdapter.addAll(vacations);
-                for (Vacation v : vacations){
-                    Log.i("VakantieTitel", v.getTitel());
-                }
+               if(response.getStatus()==200) {
+                   mAdapter.addAll(vacations);
+               }
             }
-
             @Override
             public void failure(RetrofitError error) {
                 Log.e("Retroapp",error.getMessage());
+                Toast.makeText(getActivity(),"Server is niet beschikbaar",Toast.LENGTH_SHORT);
             }
         };
        NetNico.getInstance().getService().getAllVacations(callback);
@@ -168,7 +168,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onFragmentInteraction(controllerVacations.get(position).getId());
         }
     }
 
@@ -199,7 +199,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onFragmentInteraction(Integer id);
     }
 
 }

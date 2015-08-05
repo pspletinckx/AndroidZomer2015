@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.example.fabrice.joetz2.Controllers.LijstFragment;
 import com.example.fabrice.joetz2.Controllers.PlaceholderFragment;
+import com.example.fabrice.joetz2.Controllers.VakantieFragment;
 
 
 public class MainActivity extends ActionBarActivity
@@ -133,7 +134,12 @@ public class MainActivity extends ActionBarActivity
 
 
     @Override
-    public void onFragmentInteraction(String id) {
+    public void onFragmentInteraction(Integer id) {
         //Zie implements waar deze methode vandaan kwam
+        //todo start methode die vakantie fragment aangeeft
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, VakantieFragment.newInstance(2,id))
+                .commit();
     }
 }
