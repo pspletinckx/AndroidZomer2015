@@ -30,6 +30,7 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
 import com.mobsandgeeks.saripaar.annotation.Password;
+import com.example.fabrice.joetz2.RestService.NetNico;
 
 import java.util.HashMap;
 import java.util.List;
@@ -279,6 +280,7 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
         private final String mEmail;
         private final String mPassword;
         private ProgressDialog progressDialog;
+        private NetNico netNico = new NetNico();
         //private RestClient restClient = new RestClient();
 
         /**
@@ -330,6 +332,7 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
 /*
             LoginToken loginToken;
             try {
+                loginToken = netNico.getRestService().login(loginParameterMap);
                 loginToken = restClient.getRestService().login(loginParameterMap);
                 if (loginToken != null) {
                     SharedPreferences sharedPref = getApplication()

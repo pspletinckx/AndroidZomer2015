@@ -15,11 +15,11 @@ import retrofit.http.Path;
  */
 public interface RestService {
 
-    @GET("/informatie")
-    void getAllVacations(Callback<Vacation> cb);
+    @GET("/vacation")
+    void getAllVacations(Callback<List<Vacation>> cb);
 
-   // @GET("/informatie/{vacationId}")
-    //Vacation getVacation(@Path("vacationId") long vacationId);
+    @GET("/vacation/{vacationId}")
+    void getVacation(@Path("vacationId") long vacationId,Callback<Vacation>cb);
 
     //TODO: Methode voor log in
     //TODO: Methode voor registreren

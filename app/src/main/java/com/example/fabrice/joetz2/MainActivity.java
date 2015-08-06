@@ -17,10 +17,13 @@ import com.example.fabrice.joetz2.Controllers.LijstFragment;
 import com.example.fabrice.joetz2.Controllers.LoginFragment;
 import com.example.fabrice.joetz2.Controllers.PlaceholderFragment;
 import com.example.fabrice.joetz2.Controllers.RegisterFragment;
+import com.example.fabrice.joetz2.Controllers.VakantieFragment;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LijstFragment.OnFragmentInteractionListener, RegisterFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        LijstFragment.OnFragmentInteractionListener,
+        RegisterFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -155,12 +158,17 @@ public class MainActivity extends ActionBarActivity
 
 
     @Override
-    public void onFragmentInteraction(String id) {
+    public void onFragmentInteraction(Integer id) {
         //Zie implements waar deze methode vandaan kwam
+        //todo start methode die vakantie fragment aangeeft
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, VakantieFragment.newInstance(2, id))
+                .commit();
     }
 
     @Override
     public void onFragmentInteraction() {
-
+        
     }
 }

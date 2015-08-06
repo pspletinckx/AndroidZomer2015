@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 //import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.fabrice.joetz2.Controllers.Adaptor.VacationListAdaptor;
 import com.example.fabrice.joetz2.MainActivity;
 import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
 
 import com.example.fabrice.joetz2.Controllers.dummy.DummyContent;
-import com.example.fabrice.joetz2.RestService.NodePieter;
+import com.example.fabrice.joetz2.RestService.NetNico;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -43,6 +50,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private List<Vacation> controllerVacations = new ArrayList<Vacation>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,14 +67,14 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private VacationListAdaptor mAdapter;
 
     // TODO: Rename and change types of parameters
     public static LijstFragment newInstance(String param1, String param2, int sectionNumber) {
         LijstFragment fragment = new LijstFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, param1); //voorlopig ongebruikt, refactor
+        args.putString(ARG_PARAM2, param2); //voorlopig ongebruikt, refactor
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
@@ -79,6 +87,8 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
     public LijstFragment() {
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,23 +99,32 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
-        //TEST TEST TEST
-
-        Callback <Vacation> callback = new Callback<Vacation>() {
+//        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(
+//                getActivity(),
+//                android.R.layout.simple_list_item_1,
+//                android.R.id.text1,
+//                DummyContent.ITEMS);
+        mAdapter = new VacationListAdaptor(getActivity(),R.layout.vacation_lijst_item,controllerVacations);
+       //Demo
+        Vacation voorbeeldVacation = new Vacation();
+        voorbeeldVacation.setTitel("Voorbeeldvakantie (Design)");
+        mAdapter.add(voorbeeldVacation);
+        //Demo einde
+        Callback <List<Vacation>> callback = new Callback<List<Vacation>>() {
 
             @Override
-            public void success(Vacation vacation, Response response) {
-                Log.d("Vacations",vacation.toString());
+            public void success(List<Vacation> vacations, Response response) {
+               if(response.getStatus()==200) {
+                   mAdapter.addAll(vacations);
+               }
             }
-
             @Override
             public void failure(RetrofitError error) {
-
+                Log.e("Retroapp",error.getMessage());
+                Toast.makeText(getActivity(),"Server is niet beschikbaar",Toast.LENGTH_SHORT);
             }
         };
-       NodePieter.getInstance().getService().getAllVacations(callback);
+       NetNico.getInstance().getService().getAllVacations(callback);
         //END TEST
 
     }
@@ -149,7 +168,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onFragmentInteraction(controllerVacations.get(position).getId());
         }
     }
 
@@ -180,7 +199,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onFragmentInteraction(Integer id);
     }
 
 }
