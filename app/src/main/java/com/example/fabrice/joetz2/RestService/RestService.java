@@ -1,12 +1,21 @@
 package com.example.fabrice.joetz2.RestService;
 
+import com.example.fabrice.joetz2.Models.Gebruiker;
+import com.example.fabrice.joetz2.Models.LoginToken;
 import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.Models.VacationResponse;
 
 import java.util.List;
+import java.util.Map;
+
 import retrofit.Callback;
 
+import retrofit.http.Body;
+import retrofit.http.FieldMap;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.Header;
+import retrofit.http.POST;
 import retrofit.http.Path;
 
 /**
@@ -15,12 +24,17 @@ import retrofit.http.Path;
  */
 public interface RestService {
 
-    @GET("/vacation")
+    @GET("/api/vacation")
     void getAllVacations(Callback<List<Vacation>> cb);
 
-    @GET("/vacation/{vacationId}")
+    @GET("/api/vacation/{vacationId}")
     void getVacation(@Path("vacationId") long vacationId,Callback<Vacation>cb);
 
-    //TODO: Methode voor log in
-    //TODO: Methode voor registreren
+    @FormUrlEncoded
+    @POST("/token")
+    void login(@FieldMap Map<String, String> options, Callback<LoginToken> cb);
+
+    @POST("/api/account/register")
+    void register(@Body Map<String, String> user, Callback<String> cb);
+
 }

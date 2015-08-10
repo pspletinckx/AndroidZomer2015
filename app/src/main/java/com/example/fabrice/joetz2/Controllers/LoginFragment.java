@@ -2,14 +2,19 @@ package com.example.fabrice.joetz2.Controllers;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +28,10 @@ import android.widget.Toast;
 
 //import com.example.fabrice.joetz2.Helpers.RestClient;
 import com.example.fabrice.joetz2.Helpers.HelperMethods;
+import com.example.fabrice.joetz2.Models.LoginToken;
+import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
+import com.example.fabrice.joetz2.RestService.RestClient;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -38,6 +46,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -45,12 +57,11 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    //private UserLoginTask mAuthTask = null;
 
     // UI references.
     @Order(1)
     @NotEmpty(messageResId = R.string.email_required)
-    @Email(messageResId = R.string.email_invalid)
+    //@Email(messageResId = R.string.email_invalid)
     private EditText mEmailView;
 
     @Order(2)
@@ -61,10 +72,9 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
     private Button mEmailSignInButton, mSignUpButton, mSignOutButton;
     private LinearLayout mLogoutForm, mLoginForm;
     private UserLoginTask mAuthTask = null;
-    private boolean emailValid;
-    private boolean passwordValid;
     private Validator validator;
-
+    private final static String GRANT_TYPE = "password";
+    boolean success2=true;
 
     /**
      * Initialiseert het scherm de eerste keer dat de activity gestart wordt
@@ -75,8 +85,6 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
         super.onCreate(savedInstanceState);
         validator = new Validator(this);
         validator.setValidationListener(this);
-        // Set up the login form.
-
     }
 
     @Override
@@ -96,7 +104,7 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
         mLogoutForm = (LinearLayout) v.findViewById(R.id.logout_form_buttons);
 
         setUpListeners();
-        //showButtonsForLoggedIn(HelperMethods.isLoggedIn(getApplication()));
+        showButtonsForLoggedIn(HelperMethods.isLoggedIn(getActivity()));
 
         return v;
     }
@@ -107,7 +115,8 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
     @Override
     public void onResume() {
         super.onResume();
-        //showButtonsForLoggedIn(HelperMethods.isLoggedIn(getApplication()));
+        showButtonsForLoggedIn(HelperMethods.isLoggedIn(getActivity()));
+        Log.d("Activitybro", String.valueOf(HelperMethods.isLoggedIn(getActivity())));
     }
 
     /**
@@ -127,30 +136,29 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
                 onSignUpClicked();
             }
         });
-        /*mSignOutButton.setOnClickListener(new View.OnClickListener() {
+        mSignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
             }
-        });*/
+        });
         /**
          *  Als de inhoud van de tekstvelden ongeldig is doet de enter knop op het toetsenbord bij het laatste
-         *  tekstveld niets anders zal de registratie gestart worden
+         *  tekstveld niets anders zal de de inlog taak gestart worden
          */
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 boolean isValidKey = keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER;
                 boolean isValidAction = actionId == EditorInfo.IME_ACTION_DONE;
-
                 validator.validate();
-
                 if ((isValidAction || isValidKey) && mEmailSignInButton.isEnabled()){
                     onLoginClicked();
                 }
                 return false;
             }
         });
+
         /**
          * Valideert de inhoud van het tekstveld wanneer het verandert
          */
@@ -193,6 +201,7 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
      * Gaat naar het registreren fragment
      */
     private void onSignUpClicked() {
+        dismiss();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, RegisterFragment.newInstance(6))
@@ -205,7 +214,7 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
      */
     private void onLoginClicked() {
         if (!HelperMethods.isNetworkAvailable(getActivity())) {
-            Toast.makeText(getActivity(), "No network connection", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "No network connection", Toast.LENGTH_SHORT).show();
         } else {
             attemptLogin();
         }
@@ -242,21 +251,21 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
         }
     }
 
-/**
+
     /**
      * Zal de huidig ingelogde gebruiker uitloggen
-
+    */
     public void signOut(){
-        SharedPreferences sharedPref = getApplication()
+        SharedPreferences sharedPref = getActivity()
                 .getSharedPreferences(
                         getString(R.string.authorization_preference_file),
                         Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
         editor.apply();
-        finish();
+        dismiss();
     }
-*/
+
     /**
      * Als er ingelogd is zal het login_form verdwijnen en het logout_form tevoorschijn komen,
      * als er niet ingelogd is zal het omgekeerde gebeuren
@@ -280,8 +289,6 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
         private final String mEmail;
         private final String mPassword;
         private ProgressDialog progressDialog;
-        private NetNico netNico = new NetNico();
-        //private RestClient restClient = new RestClient();
 
         /**
          * Constructor
@@ -295,12 +302,12 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
         }
         /**
          * Voordat de task gestart wordt zal er een dialog getoond worden
-
+        */
         @Override
         protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(LoginActivity.this, getResources().getString(R.string.title_login), getResources().getString(R.string.please_wait), true);
+           progressDialog = ProgressDialog.show(getActivity(), getResources().getString(R.string.title_login), getResources().getString(R.string.please_wait), true);
             super.onPreExecute();
-        }*/
+        }
         /**
          * De parameter map die meegegeven zal worden met het HTTP request naar de server
          * zal hier opgevuld worden en meegegeven worden naar de functie die het
@@ -313,14 +320,12 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
 
             Map<String, String> loginParameterMap = new HashMap<String, String>();
 
-            //loginParameterMap.put("grant_type", GRANT_TYPE);
-            //loginParameterMap.put("username", mEmail);
-            //loginParameterMap.put("password", mPassword);
-            //loginParameterMap.put("client_id", CLIENT_ID);
-            //loginParameterMap.put("client_secret", CLIENT_SECRET);
+            loginParameterMap.put("grant_type", GRANT_TYPE);
+            loginParameterMap.put("username", mEmail);
+            loginParameterMap.put("password", mPassword);
 
-            return sendLoginRequest(loginParameterMap);
-
+            sendLoginRequest(loginParameterMap);
+            return success2;
         }
         /**
          *  Zal het http request naar de server versturen en afhankelijk van of het inloggen
@@ -328,43 +333,41 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
          *  opgeslaan worden in de sharedpreferences
          * @param loginParameterMap de map die de gegevens van de in te loggen gebruiker bevat
          */
-        private boolean sendLoginRequest(final Map<String, String> loginParameterMap) {
-/*
-            LoginToken loginToken;
-            try {
-                loginToken = netNico.getRestService().login(loginParameterMap);
-                loginToken = restClient.getRestService().login(loginParameterMap);
-                if (loginToken != null) {
-                    SharedPreferences sharedPref = getApplication()
-                            .getSharedPreferences(getString(R.string.authorization_preference_file), Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString(getString(R.string.authorization), loginToken.toString());
-                    editor.apply();
-                    return true;
+        private void sendLoginRequest(final Map<String, String> loginParameterMap) {
+
+            Callback<LoginToken> callback = new Callback<LoginToken>() {
+
+                @Override
+                public void success(LoginToken token, Response response) {
+                    success2 = true;
+                    if(response.getStatus()==200) {
+                        SharedPreferences sharedPref = getActivity()
+                                .getSharedPreferences(getString(R.string.authorization_preference_file), Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString(getString(R.string.authorization), token.toString());
+                        editor.apply();
+                        progressDialog.dismiss();
+                        dismiss();
+                        mAuthTask=null;
+                    }
                 }
-            } catch (RetrofitError retrofitError) {
-                retrofitError.printStackTrace();
-                return false;
-            }
-            */
-            return false;
+
+                @Override
+                public void failure(RetrofitError error) {
+                    mAuthTask=null;
+                    success2 = false;
+                    Log.e("Retroapp", error.getMessage());
+                    Toast.makeText(getActivity(),"Server is niet beschikbaar",Toast.LENGTH_SHORT);
+                    progressDialog.dismiss();
+                    mPasswordView.setError(getString(R.string.password_mismatch));
+                    mPasswordView.requestFocus();
+                }
+            };
+            RestClient.getInstance().login(loginParameterMap,callback);
         }
-        /**
-         * Na de task zal het dialog verdwijnen, de asynchrone task gestopt worden
-         * Als het inloggen succesvol is zal naar de parent activity teruggegaan worden
-         * anders zal een errorfield ingesteld worden
-         * @param success is true als het inloggen succesvol is zoniet false
-         */
+
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            progressDialog.dismiss();
-            if (success) {
-                //finish();
-            } else {
-                mPasswordView.setError(getString(R.string.password_mismatch));
-                mPasswordView.requestFocus();
-            }
         }
         /**
          * Wanneer er geannuleerd wordt wordt de asynchrone task geannuleerd en
@@ -373,7 +376,7 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            progressDialog.dismiss();
+            dismiss();
         }
     }
 }

@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 4:
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                Fragment prev = getFragmentManager().findFragmentByTag(getString(R.string.title_login));
                 if (prev != null) {
                     ft.remove(prev);
                 }

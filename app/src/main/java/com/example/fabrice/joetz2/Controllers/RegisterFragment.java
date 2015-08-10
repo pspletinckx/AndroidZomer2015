@@ -1,6 +1,10 @@
 package com.example.fabrice.joetz2.Controllers;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.Editable;
@@ -15,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.fabrice.joetz2.Helpers.SaripaarRules.Rrn;
 import com.example.fabrice.joetz2.MainActivity;
+import com.example.fabrice.joetz2.Models.Gebruiker;
 import com.example.fabrice.joetz2.R;
+import com.example.fabrice.joetz2.RestService.RestClient;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -28,7 +34,13 @@ import com.mobsandgeeks.saripaar.annotation.Password;
 import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -91,7 +103,7 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
     private EditText mBevestigPasswordView;
 
     private Validator validator;
-
+    private UserRegisterTask mAuthTask = null;
     private Button mRegistrerenButton;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private OnFragmentInteractionListener mListener;
@@ -148,6 +160,13 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
     }
 
     public void setUpListeners(){
+
+        mRegistrerenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegistration();
+            }
+        });
 
         mEmailView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -364,6 +383,30 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
     }
 
     /**
+     * Maakt een ouder object aan met de gegevens uit de tekstvelden en geeft dit door
+     * naar de asynchrone taak om te registreren
+     */
+    public void attemptRegistration() {
+
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        String password2 = mBevestigPasswordView.getText().toString();
+        String naam = mNaamView.getText().toString();
+        String voornaam = mVoorNaamView.getText().toString();
+        String rrn = mRrnView.getText().toString();
+        String straat = mStraatView.getText().toString();
+        String nr = mNrView.getText().toString();
+        String gemeente = mGemeenteView.getText().toString();
+        String postcode = mPostcodeView.getText().toString();
+        String telNr = mTelNrView.getText().toString();
+
+        Gebruiker gebruiker = new Gebruiker(email,password,rrn,voornaam, naam, straat, gemeente, nr, postcode, telNr);
+        mAuthTask = new UserRegisterTask(gebruiker, password2);
+        mAuthTask.execute((Void) null);
+
+    }
+
+    /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -377,5 +420,132 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
         // TODO: Update argument type and name
         public void onFragmentInteraction();
     }
+
+    /**
+     * De asynchrone task om de registratie uit te voeren
+     */
+    public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Gebruiker mGebruiker;
+        private final String passwordConfirmed;
+        private ProgressDialog progressDialog;
+
+        /**
+         * @param gebruiker
+         * @param passwordConfirmed
+         */
+        public UserRegisterTask(Gebruiker gebruiker, String passwordConfirmed) {
+            this.mGebruiker = gebruiker;
+            this.passwordConfirmed = passwordConfirmed;
+        }
+
+        /**
+         * Voordat de task gestart wordt zal er een dialog getoond worden
+         */
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(getActivity(), getResources().getString(R.string.title_registreren), getResources().getString(R.string.please_wait), true);
+            super.onPreExecute();
+        }
+
+        /**
+         * De parameter map die meegegeven zal worden met het HTTP request naar de server
+         * zal hier opgevuld worden en meegegeven worden naar de functie die het
+         * request zal versturen
+         *
+         * @param voids
+         * @return true als het succesvol is zoniet false
+         */
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+            Map<String, String> signUpParamMap = new HashMap<String, String>();
+
+            signUpParamMap.put("userName", mGebruiker.getUserName());
+            signUpParamMap.put("password", mGebruiker.getPassWord());
+            signUpParamMap.put("confirmPassword", passwordConfirmed);
+            signUpParamMap.put("Tel", mGebruiker.getTel());
+            signUpParamMap.put("Voornaam", mGebruiker.getVoornaam());
+            signUpParamMap.put("Naam", mGebruiker.getNaam());
+            signUpParamMap.put("Rijksregisternummer", mGebruiker.getRijksregisternummer());
+            signUpParamMap.put("Gemeente", mGebruiker.getGemeente());
+            signUpParamMap.put("Postcode", mGebruiker.getPostcode());
+            signUpParamMap.put("Straat", mGebruiker.getStraat());
+            signUpParamMap.put("Nr", mGebruiker.getNr());
+            signUpParamMap.put("Straat", mGebruiker.getStraat());
+
+            sendSignUpRequest(signUpParamMap);
+            return true;
+        }
+
+        /**
+         * Na de task zal het dialog verdwijnen, de asynchrone task gestopt worden
+         * Als het registreren succesvol is zal de login activity gestart worden en
+         * de huidige activity gestopt worden
+         *
+         * @param success is true als het registreren succesvol is zoniet false
+         */
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+        }
+
+        /**
+         * Zal het http request naar de server versturen en afhankelijk van of het registreren
+         * wel of niet succesvol was de succes functie of failure functie aanroepen
+         *
+         * @param signupParamMap de map die de gegevens van de te registreren gebruiker bevat
+         */
+        private void sendSignUpRequest(Map<String, String> signupParamMap) {
+
+            Callback<String> gebruiker = new Callback<String>() {
+                @Override
+                public void success(String gebruiker, Response response) {
+                    if(response.getStatus() == 200){
+                        getFragmentManager().popBackStackImmediate();
+                        Toast.makeText(getActivity(), "Geregistreerd", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        openLoginDialog();
+                        mAuthTask = null;
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    progressDialog.dismiss();
+                    mAuthTask=null;
+                    Toast.makeText(getActivity(), "Niet Geregistreerd", Toast.LENGTH_SHORT).show();
+                    mEmailView.setError(getString(R.string.error_existing_email));
+                    mEmailView.requestFocus();
+                }
+
+            };
+            RestClient.getInstance().register(signupParamMap, gebruiker);
+        }
+
+        public void openLoginDialog(){
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment prev = getFragmentManager().findFragmentByTag(getString(R.string.title_login));
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            // Create and show the dialog.
+            LoginFragment newFragment = new LoginFragment();
+            newFragment.show(ft, getString(R.string.title_login));
+        }
+
+        /**
+         * Wanneer er geannuleerd wordt wordt de asynchrone task geannuleerd en
+         * zal het dialog verdwijnen
+         */
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            //progressDialog.dismiss();
+        }
+    }
+
 
 }

@@ -19,14 +19,14 @@ public class HelperMethods {
      */
     public static boolean isLoggedIn(Context context){
         boolean isLoggedIn;
-        /*SharedPreferences sharedPref = context
+        SharedPreferences sharedPref = context
                 .getSharedPreferences(context.getString(R.string.authorization_preference_file), Context.MODE_PRIVATE);
         String token = sharedPref.getString(context.getResources().getString(R.string.authorization), "No token");
         isLoggedIn = !token.equals("No token");
-*/
+
         //TODO: nakijken of token nog geldig is
 
-        return false;
+        return isLoggedIn;
     }
 
     public static boolean isNetworkAvailable(Context context) {

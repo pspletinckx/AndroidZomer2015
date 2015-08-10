@@ -46,6 +46,10 @@
     <string name="action_logout">Uitloggen</string>
     <string name="title_activity_login">Inloggen</string>
     <string name="password_invalid">Wachtwoord is niet geldig</string>
+    <string name="authorization_preference_file">com.example.fabrice.joetz2.AUTHORIZATION_PREFERENCE_FILE</string>
+    <string name="authorization">Authorization</string>
+    <string name="title_registreren">Registreren</string>
+    <string name="error_existing_email">Gebruiker bestaat al</string>
 
 
 </resources>
