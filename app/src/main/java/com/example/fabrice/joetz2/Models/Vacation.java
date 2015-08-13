@@ -3,9 +3,11 @@ package com.example.fabrice.joetz2.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 
 public class Vacation {
 
@@ -14,20 +16,18 @@ public class Vacation {
     @Expose
     private String titel;
     @Expose
-    private List<Leeftijd> leeftijd = new ArrayList<Leeftijd>();
+    private Leeftijd leeftijd;
     @Expose
     private Waar waar;
     @Expose
-    private List<Wie> wie = new ArrayList<Wie>();
-    @Expose
-    private List<Wanneer> wanneer = new ArrayList<Wanneer>();
+    private Wanneer wanneer;
     @SerializedName("aantal_deelnemers")
     @Expose
     private Integer aantalDeelnemers;
     @Expose
     private Prijs prijs;
     @Expose
-    private List<String> inbegrepen = new ArrayList<String>();
+    private List<Inbegrepen> inbegrepen = new ArrayList<Inbegrepen>();
     @Expose
     private Informatie informatie;
     @Expose
@@ -39,6 +39,9 @@ public class Vacation {
     @SerializedName("cover_foto")
     @Expose
     private CoverFoto coverFoto;
+    @SerializedName("fiscaal_voordeel")
+    @Expose
+    private Boolean fiscaalVoordeel;
 
     /**
      * 
@@ -81,7 +84,7 @@ public class Vacation {
      * @return
      *     The leeftijd
      */
-    public List<Leeftijd> getLeeftijd() {
+    public Leeftijd getLeeftijd() {
         return leeftijd;
     }
 
@@ -90,7 +93,7 @@ public class Vacation {
      * @param leeftijd
      *     The leeftijd
      */
-    public void setLeeftijd(List<Leeftijd> leeftijd) {
+    public void setLeeftijd(Leeftijd leeftijd) {
         this.leeftijd = leeftijd;
     }
 
@@ -115,27 +118,9 @@ public class Vacation {
     /**
      * 
      * @return
-     *     The wie
-     */
-    public List<Wie> getWie() {
-        return wie;
-    }
-
-    /**
-     * 
-     * @param wie
-     *     The wie
-     */
-    public void setWie(List<Wie> wie) {
-        this.wie = wie;
-    }
-
-    /**
-     * 
-     * @return
      *     The wanneer
      */
-    public List<Wanneer> getWanneer() {
+    public Wanneer getWanneer() {
         return wanneer;
     }
 
@@ -144,7 +129,7 @@ public class Vacation {
      * @param wanneer
      *     The wanneer
      */
-    public void setWanneer(List<Wanneer> wanneer) {
+    public void setWanneer(Wanneer wanneer) {
         this.wanneer = wanneer;
     }
 
@@ -189,7 +174,7 @@ public class Vacation {
      * @return
      *     The inbegrepen
      */
-    public List<String> getInbegrepen() {
+    public List<Inbegrepen> getInbegrepen() {
         return inbegrepen;
     }
 
@@ -198,7 +183,7 @@ public class Vacation {
      * @param inbegrepen
      *     The inbegrepen
      */
-    public void setInbegrepen(List<String> inbegrepen) {
+    public void setInbegrepen(List<Inbegrepen> inbegrepen) {
         this.inbegrepen = inbegrepen;
     }
 
@@ -290,6 +275,24 @@ public class Vacation {
      */
     public void setCoverFoto(CoverFoto coverFoto) {
         this.coverFoto = coverFoto;
+    }
+
+    /**
+     * 
+     * @return
+     *     The fiscaalVoordeel
+     */
+    public Boolean getFiscaalVoordeel() {
+        return fiscaalVoordeel;
+    }
+
+    /**
+     * 
+     * @param fiscaalVoordeel
+     *     The fiscaal_voordeel
+     */
+    public void setFiscaalVoordeel(Boolean fiscaalVoordeel) {
+        this.fiscaalVoordeel = fiscaalVoordeel;
     }
 
 }

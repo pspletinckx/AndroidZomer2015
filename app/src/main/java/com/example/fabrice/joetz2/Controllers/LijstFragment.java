@@ -20,8 +20,6 @@ import com.example.fabrice.joetz2.Controllers.Adaptor.VacationListAdaptor;
 import com.example.fabrice.joetz2.MainActivity;
 import com.example.fabrice.joetz2.Models.Vacation;
 import com.example.fabrice.joetz2.R;
-
-import com.example.fabrice.joetz2.Controllers.dummy.DummyContent;
 import com.example.fabrice.joetz2.RestService.NetNico;
 
 import java.util.ArrayList;

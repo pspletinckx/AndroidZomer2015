@@ -13,13 +13,13 @@ public class Prijs {
     @Expose
     private Integer vacation;
     @Expose
-    private Integer basis;
+    private Double basis;
     @SerializedName("ster_enkel")
     @Expose
-    private Integer sterEnkel;
+    private Double sterEnkel;
     @SerializedName("ster_dubbel")
     @Expose
-    private Integer sterDubbel;
+    private Double sterDubbel;
 
     /**
      * 
@@ -62,7 +62,7 @@ public class Prijs {
      * @return
      *     The basis
      */
-    public Integer getBasis() {
+    public Double getBasis() {
         return basis;
     }
 
@@ -71,7 +71,7 @@ public class Prijs {
      * @param basis
      *     The basis
      */
-    public void setBasis(Integer basis) {
+    public void setBasis(Double basis) {
         this.basis = basis;
     }
 
@@ -80,7 +80,7 @@ public class Prijs {
      * @return
      *     The sterEnkel
      */
-    public Integer getSterEnkel() {
+    public Double getSterEnkel() {
         return sterEnkel;
     }
 
@@ -89,7 +89,7 @@ public class Prijs {
      * @param sterEnkel
      *     The ster_enkel
      */
-    public void setSterEnkel(Integer sterEnkel) {
+    public void setSterEnkel(Double sterEnkel) {
         this.sterEnkel = sterEnkel;
     }
 
@@ -98,7 +98,7 @@ public class Prijs {
      * @return
      *     The sterDubbel
      */
-    public Integer getSterDubbel() {
+    public Double getSterDubbel() {
         return sterDubbel;
     }
 
@@ -107,7 +107,7 @@ public class Prijs {
      * @param sterDubbel
      *     The ster_dubbel
      */
-    public void setSterDubbel(Integer sterDubbel) {
+    public void setSterDubbel(Double sterDubbel) {
         this.sterDubbel = sterDubbel;
     }
 

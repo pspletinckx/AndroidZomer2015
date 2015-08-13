@@ -3,16 +3,14 @@ package com.example.fabrice.joetz2.Models;
 
 import com.google.gson.annotations.Expose;
 
-public class Wie {
+public class Inbegrepen {
 
     @Expose
     private Integer id;
     @Expose
     private Integer vacation;
     @Expose
-    private Integer groep;
-    @Expose
-    private Leeftijd_ leeftijd;
+    private String basis;
 
     /**
      * 
@@ -53,37 +51,19 @@ public class Wie {
     /**
      * 
      * @return
-     *     The groep
+     *     The basis
      */
-    public Integer getGroep() {
-        return groep;
+    public String getBasis() {
+        return basis;
     }
 
     /**
      * 
-     * @param groep
-     *     The groep
+     * @param basis
+     *     The basis
      */
-    public void setGroep(Integer groep) {
-        this.groep = groep;
-    }
-
-    /**
-     * 
-     * @return
-     *     The leeftijd
-     */
-    public Leeftijd_ getLeeftijd() {
-        return leeftijd;
-    }
-
-    /**
-     * 
-     * @param leeftijd
-     *     The leeftijd
-     */
-    public void setLeeftijd(Leeftijd_ leeftijd) {
-        this.leeftijd = leeftijd;
+    public void setBasis(String basis) {
+        this.basis = basis;
     }
 
 }

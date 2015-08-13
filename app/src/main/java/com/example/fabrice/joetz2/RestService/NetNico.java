@@ -14,7 +14,7 @@ public class NetNico {
         //Dit vereist een paar instellingen die moeten gewijzigd worden om deze twee systemen
         //locaal te verbinden
         //http://stackoverflow.com/questions/5433786/configure-iis-express-for-external-access-to-vs2010-project
-    private static final String BASE_URL = "http://192.168.56.1:51698/api";
+    private static final String BASE_URL = "http://192.168.56.1:51698";
     private RestService restService;
     private static NetNico singleton;
 

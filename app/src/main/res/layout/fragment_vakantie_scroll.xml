@@ -39,7 +39,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:text="Op deze kinderboerderijvakantie verblijf je echt tussen de dieren. Samen met de vele vriendjes en onze monitoren leer je op een plezante manier het leven op een echte boerderij kennen. Zo staan het voederen van de dieren, een ritje met de pony, het bakken van je eigen broodjes en nog zoveel meer op het programma. Alle dieren op de boerderij wachten vol ongeduld op jouw knuffels en goede zorgen. Wees er dus als de kippen bij en schrijf je snel in voor deze superweek!"
+                android:text="Error Op deze kinderboerderijvakantie verblijf je echt tussen de dieren. Samen met de vele vriendjes en onze monitoren leer je op een plezante manier het leven op een echte boerderij kennen. Zo staan het voederen van de dieren, een ritje met de pony, het bakken van je eigen broodjes en nog zoveel meer op het programma. Alle dieren op de boerderij wachten vol ongeduld op jouw knuffels en goede zorgen. Wees er dus als de kippen bij en schrijf je snel in voor deze superweek!"
                 android:id="@+id/promoTextView"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="00 Deelnemers"
+                android:text="00 Error Deelnemers"
                 android:id="@+id/deelnemersTextView"
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal" />
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Van 11 Augustus tot 15 Augustus"
+                android:text="Error Van 11 Augustus tot 15 Augustus"
                 android:id="@+id/datumTextView"
                 android:layout_weight="1" />
 
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Vakantiedomein, Stad"
+                android:text="Error Vakantiedomein, Stad"
                 android:id="@+id/locatieTextView"
                 android:layout_weight="1" />
 
@@ -81,15 +81,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Aanbod Voor Meerdere Leeftijden"
-                android:id="@+id/meerdereLeeftijdenTextView"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="Groep 1: 4- tot 6- jarigen (°2010-°2008)"
+                android:text="Error Groep 1: 4- tot 6- jarigen (°2010-°2008)"
                 android:id="@+id/wieTextView"
                 android:layout_weight="1" />
 

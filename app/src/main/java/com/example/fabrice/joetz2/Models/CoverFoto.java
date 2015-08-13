@@ -1,11 +1,7 @@
 
 package com.example.fabrice.joetz2.Models;
 
-
-import android.widget.ImageView;
-
 import com.google.gson.annotations.Expose;
-
 
 public class CoverFoto {
 

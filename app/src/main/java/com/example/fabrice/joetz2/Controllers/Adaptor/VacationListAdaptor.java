@@ -23,7 +23,7 @@ public class VacationListAdaptor extends ArrayAdapter<Vacation> {
     Context context;
     int resource;
     List<Vacation>data;
-    String imageHost = "https://dl.dropboxusercontent.com/u/33161611/HoGent/joetz/md/";
+    //String imageHost = "https://dl.dropboxusercontent.com/u/33161611/HoGent/joetz/md/";
 
     public VacationListAdaptor(Context context, int resource, List<Vacation> data) {
         super(context, resource, data);
@@ -52,8 +52,8 @@ public class VacationListAdaptor extends ArrayAdapter<Vacation> {
         tegel.textTitle.setText(vacation.getTitel());
         tegel.coverImage.setImageResource(R.drawable.banner_kinderboerderij);//todo maak placeholder
         if(vacation.getCoverFoto()!= null){
-            String url = imageHost+vacation.getCoverFoto().getLocatie();
-            Picasso.with(context).load(url).into(tegel.coverImage); //todo dit werkt maar niet performant
+        //    String url = imageHost+vacation.getCoverFoto().getLocatie();
+            Picasso.with(context).load(vacation.getCoverFoto().getLocatie()).into(tegel.coverImage); //todo dit werkt maar niet performant
         }
         return row;
     }

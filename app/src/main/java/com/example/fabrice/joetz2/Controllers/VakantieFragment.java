@@ -12,13 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fabrice.joetz2.MainActivity;
+import com.example.fabrice.joetz2.Models.Inbegrepen;
 import com.example.fabrice.joetz2.Models.Vacation;
-import com.example.fabrice.joetz2.Models.Wie;
 import com.example.fabrice.joetz2.R;
 import com.example.fabrice.joetz2.RestService.NetNico;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import java.util.Date;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -36,7 +38,7 @@ public class VakantieFragment extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_VAK_ID = "vakantie_id";
-    String imageHost = "https://dl.dropboxusercontent.com/u/33161611/HoGent/joetz/md/";
+    //String imageHost = "https://dl.dropboxusercontent.com/u/33161611/HoGent/joetz/md/";
     private ImageView coverFoto;
     private TextView titelText,promoText,deelnemersText,datumTextView,locatieTextView;
     private TextView meerdereLeeftijdenTextView, wieTextView;
@@ -69,9 +71,9 @@ public class VakantieFragment extends Fragment {
         promoText = (TextView)rootView.findViewById(R.id.promoTextView);
         deelnemersText = (TextView)rootView.findViewById(R.id.deelnemersTextView);
         datumTextView =(TextView) rootView.findViewById(R.id.datumTextView);
-        locatieTextView = (TextView) rootView.findViewById(R.id.datumTextView);
+        locatieTextView = (TextView) rootView.findViewById(R.id.locatieTextView);
 
-        meerdereLeeftijdenTextView = (TextView)rootView.findViewById(R.id.meerdereLeeftijdenTextView);
+        //meerdereLeeftijdenTextView = (TextView)rootView.findViewById(R.id.meerdereLeeftijdenTextView);
         wieTextView = (TextView)rootView.findViewById(R.id.wieTextView);
         basisTextView = (TextView)rootView.findViewById(R.id.basisTextView);
         enkelTextView = (TextView)rootView.findViewById(R.id.enkelTextView);
@@ -96,28 +98,23 @@ public class VakantieFragment extends Fragment {
                 //update UI here
                 Log.d("Statuscode", String.valueOf(response.getStatus()));
                 if(vacation.getId()!=0){ //todo backend issue 2
-                    String url = imageHost+vacation.getCoverFoto().getLocatie();
-                    Picasso.with(activity).load(url).into(coverFoto);
+                    //String url = imageHost+vacation.getCoverFoto().getLocatie();
+                    Picasso.with(activity).load(vacation.getCoverFoto().getLocatie()).into(coverFoto);
                     titelText.setText(vacation.getTitel());
                     promoText.setText(vacation.getPromotext());
                     deelnemersText.setText(vacation.getAantalDeelnemers()+" Deelnemers");
-                    datumTextView.setText("TODO");//todo String --> Date
+                    datumTextView.setText("Van "+vacation.getWanneer().getDateBegin()+" tot "+vacation.getWanneer().getDateEnd());//todo date parsing, maybe in gson
                     locatieTextView.setText(vacation.getWaar().getVakantieDomein()+", "+vacation.getWaar().getStad());
 
-                    meerdereLeeftijdenTextView.setVisibility((vacation.getWie().size() > 1) ? View.VISIBLE : View.INVISIBLE);
-                    wieTextView.setText("");
-                    for (Wie w : vacation.getWie()){
-                        wieTextView.append("Groep "+ w.getGroep()+": "
-                                +w.getLeeftijd().getMinLeeftijd()+"- tot "+
-                                +w.getLeeftijd().getMaxLeeftijd()+"-jarigen \n");
-                    }
+                    wieTextView.setText(vacation.getLeeftijd().getMinLeeftijd()+"- tot "+
+                                +vacation.getLeeftijd().getMaxLeeftijd()+"-jarigen");
                     basisTextView.setText(vacation.getPrijs().getBasis().toString());
                     enkelTextView.setText(vacation.getPrijs().getSterEnkel().toString());
                     dubbelTextView.setText(vacation.getPrijs().getSterDubbel().toString());
 
                     inbegrepenTextView.setText("");
-                    for (String inc : vacation.getInbegrepen()) {
-                        inbegrepenTextView.append(inc + "\n");
+                    for (Inbegrepen inc : vacation.getInbegrepen()) {
+                        inbegrepenTextView.append(inc.getBasis() + "\n");
                     }
                     telefoonTextView.setText(vacation.getInformatie().getTel());
                     emailTextView.setText(vacation.getInformatie().getEmail());

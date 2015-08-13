@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
 
+import com.example.fabrice.joetz2.Controllers.FotoFragment;
 import com.example.fabrice.joetz2.Controllers.LijstFragment;
 import com.example.fabrice.joetz2.Controllers.LoginFragment;
 import com.example.fabrice.joetz2.Controllers.PlaceholderFragment;
@@ -68,7 +69,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 2 :
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .replace(R.id.container, FotoFragment.newInstance(position+1))
                         .commit();
                 break;
             case 3 :
