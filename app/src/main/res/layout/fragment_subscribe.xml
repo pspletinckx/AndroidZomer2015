@@ -1,0 +1,351 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fabrice.joetz2.Controllers.SubscribeFragment">
+
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/subscr_form"
+        >
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:text="@string/lid_bond"/>
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton android:id="@+id/lid_ja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ja"
+                android:onClick="onLidRadioButtonClicked"/>
+
+            <RadioButton android:id="@+id/lid_nee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nee"
+                android:onClick="onLidRadioButtonClicked"/>
+    </RadioGroup>
+
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/lid_view">
+
+            <EditText
+                android:id="@+id/aanslNr1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/aanslNr1"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_top_bg"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/aanslNr2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/aanslNr1"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_top_bg"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/geg_contpers"/>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rrn"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/naam"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adres"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/telNr"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/is_betaler"
+            />
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton android:id="@+id/contpers_betaler_ja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ja"
+                android:onClick="onBetalerRadioButtonClicked"/>
+
+            <RadioButton android:id="@+id/contpers_betaler_nee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nee"
+                android:onClick="onBetalerRadioButtonClicked"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/betaler"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/betaler"
+                />
+
+            <EditText
+                android:id="@+id/betaler_rrn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/rrn"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_top_bg"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_voornaam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/voornaam"
+                android:singleLine="true"
+                android:background="@drawable/edittext_default_bg"
+                android:padding="10dp"
+                android:layout_marginTop="-2dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_naam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/lastname"
+                android:singleLine="true"
+                android:background="@drawable/edittext_default_bg"
+                android:padding="10dp"
+                android:layout_marginTop="-2dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_straat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/straat"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_straatNr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/straatNr"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_gemeente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/gemeente"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_postcode"
+                android:digits="0123456789"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/postcode"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_telNr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/telNr"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_default_bg"
+                android:padding="10dp"
+                android:layout_marginTop="-2dp"
+                android:textColorHint="@color/loginHints"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/deelnemer"
+            />
+
+        <EditText
+            android:id="@+id/deelnemer_rrn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:hint="@string/rrn"
+            android:inputType="numberDecimal"
+            android:digits="0123456789"
+            android:background="@drawable/edittext_top_bg"
+            android:layout_marginTop="4dp"
+            android:padding="10dp"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_voornaam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:hint="@string/voornaam"
+            android:singleLine="true"
+            android:background="@drawable/edittext_default_bg"
+            android:padding="10dp"
+            android:layout_marginTop="-2dp"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_naam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:hint="@string/lastname"
+            android:singleLine="true"
+            android:background="@drawable/edittext_default_bg"
+            android:padding="10dp"
+            android:layout_marginTop="-2dp"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_birthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:hint="@string/geboortedatum"
+            android:background="@drawable/edittext_default_bg"
+            android:layout_marginTop="-2dp"
+            android:padding="10dp"
+            android:textColorHint="@color/loginHints"
+            android:editable="false"
+            />
+
+
+
+    </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

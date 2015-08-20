@@ -50,6 +50,17 @@
     <string name="authorization">Authorization</string>
     <string name="title_registreren">Registreren</string>
     <string name="error_existing_email">Gebruiker bestaat al</string>
+    <string name="ja">Ja</string>
+    <string name="nee">Nee</string>
+    <string name="aanslNr1">Aansluitingsnummer ouder</string>
+    <string name="lid_bond">Is de deelnemer lid van de Bond Moyson ?</string>
+    <string name="geg_contpers">Gegevens van de contactpersoon</string>
+    <string name="naam">Naam</string>
+    <string name="adres">Adres</string>
+    <string name="is_betaler">Is de contactpersoon ook de betalende ouder?</string>
+    <string name="betaler">Gegevens van de ouder die betaalt</string>
+    <string name="deelnemer">Gegevens van de deelnemer</string>
+    <string name="geboortedatum">Geboortedatum</string>
 
 
 </resources>
