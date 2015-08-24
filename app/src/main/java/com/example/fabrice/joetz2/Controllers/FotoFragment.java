@@ -1,13 +1,23 @@
 package com.example.fabrice.joetz2.Controllers;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.example.fabrice.joetz2.MainActivity;
 import com.example.fabrice.joetz2.R;
 import com.google.android.gms.common.api.ResultCallback;
@@ -21,16 +31,13 @@ import com.google.android.gms.drive.MetadataChangeSet;
  * A placeholder fragment containing a simple view.
  */
 public class FotoFragment extends Fragment {
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private ImageButton fromGallery;
+    private ImageButton fromCamera;
+    private ImageView uploadVoorbeeld;
+    private EditText uploadTitel, uploadBeschrijving;
+    private LinearLayout uploadScherm;
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
     public static FotoFragment newInstance(int sectionNumber) {
         FotoFragment fragment = new FotoFragment();
         Bundle args = new Bundle();
@@ -46,31 +53,26 @@ public class FotoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_foto, container, false);
+        fromGallery = (ImageButton)rootView.findViewById(R.id.fromGallery);
+        fromCamera = (ImageButton) rootView.findViewById(R.id.fromCamera);
+        uploadVoorbeeld = (ImageView) rootView.findViewById(R.id.uploadVoorbeeld);
+        uploadTitel = (EditText) rootView.findViewById(R.id.uploadTitel);
+        uploadBeschrijving = (EditText) rootView.findViewById(R.id.uploadBeschrijving);
+        uploadScherm = (LinearLayout)rootView.findViewById(R.id.uploadScherm);
 
 
-    /*
-        ResultCallback<DriveContentsResult> newDriveContentsCallback = new
-                ResultCallback<DriveContentsResult>() {
-                    @Override
-                    public void onResult(DriveContentsResult result) {
-                        MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
-                                .setMimeType("text/html").build();
-                        IntentSender intentSender = Drive.DriveApi
-                                .newCreateFileActivityBuilder()
-                                .setInitialMetadata(metadataChangeSet)
-                                .setInitialDriveContents(result.getDriveContents())
-                                .build(getGoogleApiClient());
-                        try {
-                            startIntentSenderForResult(
-                                    intentSender, REQUEST_CODE_CREATOR, null, 0, 0, 0);
-                        } catch (IntentSender.SendIntentException e) {
-                            Log.w(TAG, "Unable to send intent", e);
-                        }
-                    }
-                };
-    */
-
-
+        fromCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
+        fromGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectFromGallery();
+            }
+        });
         return rootView;
     }
 
@@ -79,5 +81,36 @@ public class FotoFragment extends Fragment {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
+
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int PICK_IMAGE = 2;
+    static final int RESULT_OK = -1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    private void selectFromGallery(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            uploadScherm.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+            uploadVoorbeeld.setImageBitmap(imageBitmap);
+            uploadVoorbeeld.setX(30);
+        }
+
     }
 }
