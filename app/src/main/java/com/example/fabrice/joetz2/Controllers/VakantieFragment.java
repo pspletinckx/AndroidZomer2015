@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,9 +44,6 @@ public class VakantieFragment extends Fragment {
     private TextView meerdereLeeftijdenTextView, wieTextView;
     private TextView basisTextView, enkelTextView, dubbelTextView;
     private TextView inbegrepenTextView, telefoonTextView, emailTextView;
-    private Button mInschrijvenButton;
-    private OnFragmentInteractionListener mListener;
-
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -85,31 +81,13 @@ public class VakantieFragment extends Fragment {
         inbegrepenTextView = (TextView)rootView.findViewById(R.id.inbegrepenTextView);
         telefoonTextView =(TextView) rootView.findViewById(R.id.telefoonTextView);
         emailTextView = (TextView) rootView.findViewById(R.id.emailTextView);
-        mInschrijvenButton = (Button) rootView.findViewById(R.id.btn_inschrijven);
-
-        mInschrijvenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBoekenClicked();
-            }
-        });
 
         return rootView;
-    }
-
-    public void onBoekenClicked(){
-        mListener.onFragmentInteraction(this.getArguments().getInt(ARG_VAK_ID), "vakantieFragment");
     }
 
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
         ((MainActivity) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
 
@@ -149,12 +127,8 @@ public class VakantieFragment extends Fragment {
                 Toast.makeText(getActivity(), "Server is niet beschikbaar", Toast.LENGTH_SHORT);
             }
         };
-        NetNico.getInstance().getService().getVacation(this.getArguments().getInt(ARG_VAK_ID), callback);
-    }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Integer id, String source);
+        NetNico.getInstance().getService().getVacation(getArguments().getInt(ARG_VAK_ID), callback);
     }
 
 }
