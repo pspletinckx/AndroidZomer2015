@@ -3,11 +3,14 @@ package com.example.fabrice.joetz2.Controllers;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.fabrice.joetz2.MainActivity;
 import com.example.fabrice.joetz2.R;
@@ -24,6 +28,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.drive.Drive;
 import com.google.android.gms.drive.DriveApi.DriveContentsResult;
 import com.google.android.gms.drive.MetadataChangeSet;
+
+import java.io.File;
 
 //import android.support.v4.app.Fragment;
 
@@ -87,9 +93,14 @@ public class FotoFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PICK_IMAGE = 2;
     static final int RESULT_OK = -1;
+    private Uri imageUri;
 
     private void dispatchTakePictureIntent() {
+        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                Uri.fromFile(photo));
+        imageUri = Uri.fromFile(photo);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -104,13 +115,42 @@ public class FotoFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            uploadScherm.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-            uploadVoorbeeld.setImageBitmap(imageBitmap);
-            uploadVoorbeeld.setX(30);
-        }
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_IMAGE_CAPTURE:
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri selectedImage = imageUri;
+                    getActivity().getContentResolver().notifyChange(selectedImage, null);
+                    ContentResolver cr = getActivity().getContentResolver();
+                    Bitmap bitmap;
+                    try {
+                        bitmap = android.provider.MediaStore.Images.Media
+                                .getBitmap(cr, selectedImage);
 
+                        uploadVoorbeeld.setImageBitmap(bitmap);
+                        uploadScherm.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        uploadVoorbeeld.setX(30);
+                        Toast.makeText(getActivity(), selectedImage.toString(),Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), "Failed to load", Toast.LENGTH_SHORT)
+                                .show();
+                        Log.e("Camera", e.toString());
+                    }
+                }
+        }
     }
+
+
+
+
+
+
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            uploadScherm.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+//            uploadVoorbeeld.setImageBitmap(imageBitmap);
+//            uploadVoorbeeld.setX(30);
+//        }
+
 }

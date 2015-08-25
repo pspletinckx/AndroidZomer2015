@@ -127,7 +127,8 @@ public class VakantieFragment extends Fragment {
                 Toast.makeText(getActivity(), "Server is niet beschikbaar", Toast.LENGTH_SHORT);
             }
         };
-        NetNico.getInstance().getService().getVacation(1, callback);
+
+        NetNico.getInstance().getService().getVacation(getArguments().getInt(ARG_VAK_ID), callback);
     }
 
 }
