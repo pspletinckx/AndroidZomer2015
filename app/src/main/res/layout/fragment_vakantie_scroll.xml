@@ -192,6 +192,18 @@
                 android:text="info@hogent.be"
                 android:id="@+id/emailTextView" />
 
+            <Button
+                android:id="@+id/btn_inschrijven"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="0dp"
+                android:text="@string/boek_nu"
+                style="@style/DefaultButtonText"
+                android:background="@drawable/button_default_bg"
+                android:layout_marginTop="5dp"
+                />
+
         </LinearLayout>
     </ScrollView>
 

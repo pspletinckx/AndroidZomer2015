@@ -119,7 +119,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
             @Override
             public void failure(RetrofitError error) {
                 Log.e("Retroapp",error.getMessage());
-                Toast.makeText(getActivity(),"Server is niet beschikbaar",Toast.LENGTH_SHORT);
+                //Toast.makeText(getActivity(),"Server is niet beschikbaar",Toast.LENGTH_SHORT);
             }
         };
        NetNico.getInstance().getService().getAllVacations(callback);
@@ -166,7 +166,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(controllerVacations.get(position).getId());
+            mListener.onFragmentInteraction(controllerVacations.get(position).getId(), "lijstFragment");
         }
     }
 
@@ -197,7 +197,7 @@ public class LijstFragment extends Fragment implements AbsListView.OnItemClickLi
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Integer id);
+        public void onFragmentInteraction(Integer id, String source);
     }
 
 }

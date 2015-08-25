@@ -11,22 +11,24 @@ public class Gebruiker {
     private String userName;
     @SerializedName("passWord")
     private String passWord;
-    @SerializedName("Rijksregisternummer")
+    @SerializedName("RNR")
     private String Rijksregisternummer;
-    @SerializedName("Voornaam")
+    @SerializedName("firstName")
     private String Voornaam;
-    @SerializedName("Naam")
+    @SerializedName("lastName")
     private String Naam;
-    @SerializedName("Straat")
+    @SerializedName("street")
     private String Straat;
-    @SerializedName("Gemeente")
+    @SerializedName("city")
     private String Gemeente;
-    @SerializedName("Nr")
+    @SerializedName("houseNr")
     private String Nr;
-    @SerializedName("Postcode")
+    @SerializedName("postalCode")
     private String Postcode;
-    @SerializedName("Tel")
+    @SerializedName("phoneNumber")
     private String Tel;
+    @SerializedName("id")
+    private int id;
 
     public Gebruiker(String userName, String passWord, String rijksregisternummer, String voornaam, String naam, String straat, String gemeente, String nr, String postcode, String tel) {
         this.userName = userName;
@@ -39,6 +41,19 @@ public class Gebruiker {
         Nr = nr;
         Postcode = postcode;
         Tel = tel;
+    }
+
+    public Gebruiker(String userName, String rijksregisternummer, String voornaam, String naam, String straat, String gemeente, String nr, String postcode, String tel, int id) {
+        this.userName = userName;
+        Rijksregisternummer = rijksregisternummer;
+        Voornaam = voornaam;
+        Naam = naam;
+        Straat = straat;
+        Gemeente = gemeente;
+        Nr = nr;
+        Postcode = postcode;
+        Tel = tel;
+        this.id = id;
     }
 
     public String getUserName() {
@@ -119,5 +134,30 @@ public class Gebruiker {
 
     public void setTel(String tel) {
         Tel = tel;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Gebruiker{" +
+                "userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", Rijksregisternummer='" + Rijksregisternummer + '\'' +
+                ", Voornaam='" + Voornaam + '\'' +
+                ", Naam='" + Naam + '\'' +
+                ", Straat='" + Straat + '\'' +
+                ", Gemeente='" + Gemeente + '\'' +
+                ", Nr='" + Nr + '\'' +
+                ", Postcode='" + Postcode + '\'' +
+                ", Tel='" + Tel + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

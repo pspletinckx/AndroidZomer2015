@@ -61,6 +61,32 @@
     <string name="betaler">Gegevens van de ouder die betaalt</string>
     <string name="deelnemer">Gegevens van de deelnemer</string>
     <string name="geboortedatum">Geboortedatum</string>
-
+    <string name="ouders_deelnemer">Gegevens van de ouders</string>
+    <string name="vooraam_naam_moeder">Voornaam + naam moeder</string>
+    <string name="rrn_moeder">Rijksregisternummer moeder</string>
+    <string name="voornaam_naam_vader">Voornaam + naam vader</string>
+    <string name="rrn_vader">Rijksregisternummer vader</string>
+    <string name="naam_betaler_required">Voornaam betaler is verplicht</string>
+    <string name="nnaam_betaler_required">Naam betaler is verplicht</string>
+    <string name="straat_betaler_required">Straat betaler is verplicht</string>
+    <string name="nr_betaler_verplicht">Huisnummer betaler is verplicht</string>
+    <string name="gemeente_betaler_required">Gemeente betaler is verplicht</string>
+    <string name="postcode_betaler_verplicht">Postcode betaler is verplicht</string>
+    <string name="naam_moeder_required">Naam moeder is verplicht</string>
+    <string name="rrn_moeder_required">Rijksregisternummer moeder is verplicht</string>
+    <string name="naam_vader_required">Naam vader is verplicht</string>
+    <string name="rrn_vader_required">Rijksregisternummer vader is verplicht</string>
+    <string name="rrn_deelnemer_required">Rijksregisternummer deelnemer is verplicht</string>
+    <string name="voornaam_deelnemer_required">Voornaam deelnemer is verplicht</string>
+    <string name="naam_deelenemer_required">Naam deelnemer is verplicht</string>
+    <string name="straat_deelnemer_required">Straat deelnemer is verplicht</string>
+    <string name="straatnr_deelnemer_required">Huisnummer deelnemer is verplicht</string>
+    <string name="gemeente_deelnemer_required">Gemeente deelnemer is verplicht</string>
+    <string name="postcode_deelnemer_required">Postcode deelnemer is verplicht</string>
+    <string name="telnr_deelnemer_required">TelNr deelnemer is verplicht</string>
+    <string name="email_deelnemer_required">Email deelnemer is verplicht</string>
+    <string name="dob_deelnemer_required">Geboortedatum deelnemer is verplicht</string>
+    <string name="boek_nu">Boek nu</string>
+    <string name="title_inschrijven">Inschrijven</string>
 
 </resources>
