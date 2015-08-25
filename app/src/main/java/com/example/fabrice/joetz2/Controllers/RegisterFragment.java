@@ -114,7 +114,6 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
      *
      * @return A new instance of fragment RegisterFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static RegisterFragment newInstance(int sectionNumber) {
         RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
@@ -464,15 +463,15 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
             signUpParamMap.put("userName", mGebruiker.getUserName());
             signUpParamMap.put("password", mGebruiker.getPassWord());
             signUpParamMap.put("confirmPassword", passwordConfirmed);
-            signUpParamMap.put("Tel", mGebruiker.getTel());
-            signUpParamMap.put("Voornaam", mGebruiker.getVoornaam());
-            signUpParamMap.put("Naam", mGebruiker.getNaam());
-            signUpParamMap.put("Rijksregisternummer", mGebruiker.getRijksregisternummer());
-            signUpParamMap.put("Gemeente", mGebruiker.getGemeente());
-            signUpParamMap.put("Postcode", mGebruiker.getPostcode());
-            signUpParamMap.put("Straat", mGebruiker.getStraat());
-            signUpParamMap.put("Nr", mGebruiker.getNr());
-            signUpParamMap.put("Straat", mGebruiker.getStraat());
+            signUpParamMap.put("PhoneNumber", mGebruiker.getTel());
+            signUpParamMap.put("FirstName", mGebruiker.getVoornaam());
+            signUpParamMap.put("LastName", mGebruiker.getNaam());
+            signUpParamMap.put("RNR", mGebruiker.getRijksregisternummer());
+            signUpParamMap.put("City", mGebruiker.getGemeente());
+            signUpParamMap.put("PostalCode", mGebruiker.getPostcode());
+            signUpParamMap.put("Street", mGebruiker.getStraat());
+            signUpParamMap.put("HouseNr", mGebruiker.getNr());
+            signUpParamMap.put("Bus", "6");
 
             sendSignUpRequest(signUpParamMap);
             return true;

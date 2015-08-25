@@ -1,6 +1,9 @@
 package com.example.fabrice.joetz2.RestService;
 
+import com.example.fabrice.joetz2.Models.Gebruiker;
 import com.example.fabrice.joetz2.Models.LoginToken;
+import com.example.fabrice.joetz2.Models.MyselfModel;
+import com.example.fabrice.joetz2.Models.SubscribeModel;
 import com.example.fabrice.joetz2.Models.Vacation;
 
 import java.util.List;
@@ -44,7 +47,7 @@ public class RestClient {
     }
 
     public void getVacation(long vacationId,Callback<Vacation> callback){
-        restService.getVacation(vacationId,callback);
+        restService.getVacation(vacationId, callback);
     }
 
     public void login(Map<String, String> paramMap,Callback<LoginToken> callback ){
@@ -53,5 +56,17 @@ public class RestClient {
 
     public void register(Map<String, String> paramMap, Callback<String> callback){
         restService.register(paramMap, callback);
+    }
+
+    public void getMe(String authorization, Callback<MyselfModel> callback){
+        restService.getMe(authorization, callback);
+    }
+
+    public void getAccount(String authorization, String userName, Callback<Gebruiker> user){
+        restService.getAccount(authorization,userName,user);
+    }
+
+    public void subscribe(String authorization, SubscribeModel model, Callback<String> user){
+        restService.subscribe(authorization, model, user);
     }
 }

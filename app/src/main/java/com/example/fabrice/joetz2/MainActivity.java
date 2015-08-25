@@ -3,6 +3,7 @@ package com.example.fabrice.joetz2;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 //import android.support.v4.app.FragmentManager;
@@ -18,13 +19,16 @@ import com.example.fabrice.joetz2.Controllers.LijstFragment;
 import com.example.fabrice.joetz2.Controllers.LoginFragment;
 import com.example.fabrice.joetz2.Controllers.PlaceholderFragment;
 import com.example.fabrice.joetz2.Controllers.RegisterFragment;
+import com.example.fabrice.joetz2.Controllers.SubscribeFragment;
 import com.example.fabrice.joetz2.Controllers.VakantieFragment;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         LijstFragment.OnFragmentInteractionListener,
-        RegisterFragment.OnFragmentInteractionListener {
+        RegisterFragment.OnFragmentInteractionListener,
+        SubscribeFragment.OnFragmentInteractionListener,
+        VakantieFragment.OnFragmentInteractionListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -159,17 +163,33 @@ public class MainActivity extends ActionBarActivity
 
 
     @Override
-    public void onFragmentInteraction(Integer id) {
+    public void onFragmentInteraction(Integer id, String source) {
         //Zie implements waar deze methode vandaan kwam
         //todo start methode die vakantie fragment aangeeft
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, VakantieFragment.newInstance(2, id))
-                .commit();
+
+        switch(source){
+            case "vakantieFragment" :
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, SubscribeFragment.newInstance(id))
+                        .commit();
+                break;
+            case "lijstFragment" :
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, VakantieFragment.newInstance(2,id))
+                        .commit();
+                break;
+        }
+
     }
 
     @Override
     public void onFragmentInteraction() {
         
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

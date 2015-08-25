@@ -61,7 +61,7 @@ public class LoginFragment extends DialogFragment implements Validator.Validatio
     // UI references.
     @Order(1)
     @NotEmpty(messageResId = R.string.email_required)
-    //@Email(messageResId = R.string.email_invalid)
+    @Email(messageResId = R.string.email_invalid)
     private EditText mEmailView;
 
     @Order(2)

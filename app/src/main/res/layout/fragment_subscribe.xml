@@ -1,0 +1,310 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fabrice.joetz2.Controllers.SubscribeFragment">
+
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/subscr_form"
+        >
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/betaler"
+                />
+
+
+            <EditText
+                android:id="@+id/betaler_voornaam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/voornaam"
+                android:singleLine="true"
+                android:background="@drawable/edittext_default_bg"
+                android:padding="10dp"
+                android:layout_marginTop="-2dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_naam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/lastname"
+                android:singleLine="true"
+                android:background="@drawable/edittext_default_bg"
+                android:padding="10dp"
+                android:layout_marginTop="-2dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_straat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/straat"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_straatNr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/straatNr"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_gemeente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/gemeente"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/betaler_postcode"
+                android:digits="0123456789"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/postcode"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/loginHints"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ouders_deelnemer"/>
+
+            <EditText
+                android:id="@+id/naam_moeder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/vooraam_naam_moeder"
+                android:singleLine="true"
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+                android:layout_marginTop="4dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/rrn_moeder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/rrn_moeder"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:background="@drawable/edittext_bottom_bg"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/naam_vader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/voornaam_naam_vader"
+                android:singleLine="true"
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+                android:layout_marginTop="4dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/rrn_vader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/rrn_vader"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_bottom_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deelnemer"
+                />
+
+            <EditText
+                android:id="@+id/deelnemer_rrn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/rrn"
+                android:inputType="numberDecimal"
+                android:digits="0123456789"
+                android:background="@drawable/edittext_top_bg"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/deelnemer_voornaam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/voornaam"
+                android:singleLine="true"
+                android:background="@drawable/edittext_default_bg"
+                android:padding="10dp"
+                android:layout_marginTop="-2dp"
+                android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/deelnemer_naam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:hint="@string/lastname"
+                android:singleLine="true"
+                android:background="@drawable/edittext_default_bg"
+                android:padding="10dp"
+                android:layout_marginTop="-2dp"
+                android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_straat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:hint="@string/straat"
+            android:background="@drawable/edittext_default_bg"
+            android:layout_marginTop="-2dp"
+            android:padding="10dp"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_straatNr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:hint="@string/straatNr"
+            android:inputType="numberDecimal"
+            android:digits="0123456789"
+            android:background="@drawable/edittext_default_bg"
+            android:layout_marginTop="-2dp"
+            android:padding="10dp"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_gemeente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:hint="@string/gemeente"
+            android:background="@drawable/edittext_default_bg"
+            android:layout_marginTop="-2dp"
+            android:padding="10dp"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_postcode"
+            android:digits="0123456789"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:hint="@string/postcode"
+            android:background="@drawable/edittext_default_bg"
+            android:layout_marginTop="-2dp"
+            android:padding="10dp"
+            android:inputType="numberDecimal"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_telNr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:hint="@string/telNr"
+            android:inputType="numberDecimal"
+            android:digits="0123456789"
+            android:background="@drawable/edittext_default_bg"
+            android:padding="10dp"
+            android:layout_marginTop="-2dp"
+            android:textColorHint="@color/loginHints"/>
+
+        <EditText
+            android:id="@+id/deelnemer_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeActionLabel="@string/next"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email_hint"
+            android:background="@drawable/edittext_default_bg"
+            android:layout_marginTop="-2dp"
+            android:padding="10dp"
+            android:textColorHint="@color/loginHints"/>
+
+            <EditText
+                android:id="@+id/deelnemer_birthdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="@string/next"
+                android:singleLine="true"
+                android:hint="@string/geboortedatum"
+                android:background="@drawable/edittext_default_bg"
+                android:layout_marginTop="-2dp"
+                android:padding="10dp"
+                android:textColorHint="@color/loginHints"
+                android:editable="true" />
+
+        <Button
+            android:id="@+id/inschrijven_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="0dp"
+            android:text="@string/title_inschrijven"
+            style="@style/DefaultButtonText"
+            android:background="@drawable/button_default_bg"
+            android:layout_marginTop="5dp"
+            android:enabled="false"
+            />
+
+    </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
