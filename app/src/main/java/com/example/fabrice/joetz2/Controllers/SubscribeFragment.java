@@ -144,10 +144,6 @@ public class SubscribeFragment extends Fragment implements Validator.ValidationL
     @Email(messageResId = R.string.email_invalid)
     private EditText mEmailDeelnemer;
 
-    @Order(20)
-    @NotEmpty(messageResId = R.string.dob_deelnemer_required)
-    private EditText mBirthDateDeelnemer;
-
 
     /**
      * Use this factory method to create a new instance of
@@ -200,7 +196,6 @@ public class SubscribeFragment extends Fragment implements Validator.ValidationL
         mPostCodeDeelnemer = (EditText) v.findViewById(R.id.deelnemer_postcode);
         mTelNrDeelnemer = (EditText) v.findViewById(R.id.deelnemer_telNr);
         mEmailDeelnemer = (EditText) v.findViewById(R.id.deelnemer_email);
-        mBirthDateDeelnemer = (EditText) v.findViewById(R.id.deelnemer_birthdate);
         mSubscribeButton = (Button) v.findViewById(R.id.inschrijven_button);
         setupListeners();
 
@@ -518,22 +513,7 @@ public class SubscribeFragment extends Fragment implements Validator.ValidationL
 
             }
         });
-        mBirthDateDeelnemer.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validator.validateTill(mBirthDateDeelnemer);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
     public void onButtonPressed(Uri uri) {
@@ -737,18 +717,6 @@ public class SubscribeFragment extends Fragment implements Validator.ValidationL
 
         }
 
-        public void openLoginDialog(){
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            Fragment prev = getFragmentManager().findFragmentByTag(getString(R.string.title_login));
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.addToBackStack(null);
-
-            // Create and show the dialog.
-            LoginFragment newFragment = new LoginFragment();
-            newFragment.show(ft, getString(R.string.title_login));
-        }
 
         /**
          * Wanneer er geannuleerd wordt wordt de asynchrone task geannuleerd en
